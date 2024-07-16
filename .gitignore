@@ -4,21 +4,4 @@
 /sqlclient-ui/node_modules
 /sqlclient-ui/.pnp
 /sqlclient-ui/.pnp.js
-
-# testing
-/sqlclient-ui/coverage
-
-# production
-/sqlclient-ui/build
-
-# misc
-/sqlclient-ui/.DS_Store
-/sqlclient-ui/.env.local
-/sqlclient-ui/.env.development.local
-/sqlclient-ui/.env.test.local
-/sqlclient-ui/.env.production.local
-
-/sqlclient-ui/npm-debug.log*
-/sqlclient-ui/yarn-debug.log*
-/sqlclient-ui/yarn-error.log*
-ref
+/ref
