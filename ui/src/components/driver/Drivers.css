@@ -1,0 +1,17 @@
+.drivers-table {
+    margin-bottom: 8px;
+    width: 100%;
+}
+.drivers-card {
+    width: 70%;
+    display: flex;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 8px;
+}
+.driver-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}

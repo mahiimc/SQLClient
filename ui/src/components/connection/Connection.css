@@ -1,0 +1,44 @@
+.credentials {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+}
+
+.menu-items {
+    display: flex;
+    border: 1px dotted black;
+    padding: 4px;
+   border-radius: 10px;
+   justify-content: center;
+   width: 40%;
+   margin: auto;
+   margin-top: 20px;
+}
+.add-connection {
+    display: flex;
+    margin: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.actions {
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+}
+
+.scrollable-tree {
+    max-height: 800vh;
+    height: 800vh;
+    overflow-y: auto; 
+    /* border: 1px solid #d9d9d9;  */
+    padding: 10px;
+    scrollbar-width: thin;
+}
+.column-title {
+    display: flex;
+    gap: 4px;
+    /* align-items: center; */
+    /* text-overflow: ellipsis; */
+}

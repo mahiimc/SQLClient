@@ -1,0 +1,81 @@
+.layout {
+    display: flex;
+    gap: 5px;
+}
+
+.main-content {
+    border: 1px dotted  black;
+    width: 80%;
+}
+
+.side-bar {
+    margin-top: 1px;
+    display: flex;
+    border-right: 0.000001px solid gray;
+    height: 95vh;
+    width: 15%;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+}
+
+.action-items {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+.search-box {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.connection-items {
+    border: 1px dotted black;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    margin-bottom: 10px;
+
+}
+
+.connection-item {
+    display: flex;
+    font-size: 12px;
+    padding: 2px;
+    gap: 4px;
+
+}
+
+
+.info {
+    justify-self: flex-end;
+}
+.settings {
+    display: flex;
+    margin-top: auto;
+    font-size: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.app-version {
+    font-size: 10px;
+    font-weight: bold;
+}
+.empty {
+    margin: auto;
+}
+.settings-popup {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px;
+}
+.icon-btn {
+    cursor: pointer;
+}
