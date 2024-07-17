@@ -6,13 +6,22 @@ import java.util.Set;
 import com.imc.sqlclient.core.utils.PluginUtils;
 
 public class DriverLoader {
+	
+	private  String path;
+	
+	public DriverLoader() {
+		
+	}
+	
+	public DriverLoader(String path) {
+		this.path = path;
+	}
 
 	private static final PluginClassesRepository REPO = PluginClassesRepository.getInstance();
 
-	private static final String DRIVER_PATH = "D:\\Project\\sqlclient\\src\\main\\resources\\drivers";
 
 	public synchronized void load() {
-		File[] files = new File(DRIVER_PATH).listFiles();
+		File[] files = new File(path).listFiles();
 		if (files != null) {
 			load(files);
 		}
@@ -62,7 +71,7 @@ public class DriverLoader {
 
 	private boolean isWatchedDirectory(String directory) {
 		directory = new File(directory).getAbsolutePath();
-		return directory.equalsIgnoreCase(DRIVER_PATH);
+		return directory.equalsIgnoreCase(path);
 	}
 
 }

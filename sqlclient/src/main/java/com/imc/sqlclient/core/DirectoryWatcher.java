@@ -28,13 +28,14 @@ public class DirectoryWatcher implements Runnable {
 	public final WatchService watcher;
 	private final Map<WatchKey, Path> keys;
 	private boolean trace = false;
+	private static final ApplicationProperties properties = ApplicationProperties.getInstance();
 	private DriverLoader driverLoader = new DriverLoader();
 	
 	public DirectoryWatcher() {
 		try {
 			this.watcher = FileSystems.getDefault().newWatchService();
 			this.keys = new HashMap<>();
-			String driverPath = "D:\\Project\\sqlclient\\src\\main\\resources\\drivers";
+			String driverPath = properties.getDriverPath();
 			Path drivers = Paths.get(driverPath);
 			registerAll(drivers);
 			this.trace = true;

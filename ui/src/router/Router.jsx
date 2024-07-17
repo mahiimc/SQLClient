@@ -1,7 +1,7 @@
 
 import CreateConnection from '../components/connection/CreateConnection';
 import DriverList from '../components/driver/DriverList';
-import Notepad from '../components/editor/Notepad';
+import DataViewer from '../components/editor/DataViewer';
 import SQLEditor from '../components/editor/SQLEditor';
 import Error from '../components/error/Error';
 import AppLayout from '../components/layout/AppLayout';
@@ -31,12 +31,12 @@ export const router = createBrowserRouter([
                 element: <DriverList/>
             },
             {
-                path: 'editor',
+                path: 'editor/*',
                 element: <SQLEditor/>
             },
             {
-                path: 'notepad/*',
-                element: <Notepad/>
+                path: 'data/*',
+                element: <DataViewer/>
             }
         ]
     }

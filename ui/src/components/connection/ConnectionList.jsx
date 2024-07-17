@@ -57,16 +57,18 @@ const ConnectionList = () => {
     };
   
 
-    const handleTableDoubleClick = async (connectionId, tableName) => {
-      // const response = await  axios.get(`/data/${connectionId}/${tableName}`);
-      // console.log(response.data.data.result);
-      navigate(`notepad/${connectionId}/${tableName}`,{state:{connectionId: connectionId, tableName:tableName}});
+    const handleTableDoubleClick =  (connectionId, tableName) => {
+      navigate(`data/${connectionId}/${tableName}`,{state:{connectionId: connectionId, tableName:tableName}});
+    }
+
+    const handleConnectionDoubleClick =  (connectionId) => {
+      navigate(`editor/${connectionId}/`,{state:{connectionId: connectionId}});
     }
 
     const transformDataToTreeNodes = (data) => {
         return data.map(item => ({
           
-          title: (<div onDoubleClick={() => alert('double click')}>{item.name}</div>),
+          title: (<div onDoubleClick={() => handleConnectionDoubleClick(item.id)}>{item.name}</div>),
           key: item.id,
           children: [
             {
