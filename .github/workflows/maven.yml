@@ -47,5 +47,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Package
-        path: target
+        path: /home/runner/work/SQLClient/SQLClient/sqlclient/target
         if-no-files-found: error
