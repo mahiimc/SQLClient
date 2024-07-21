@@ -11,15 +11,15 @@ import java.util.Set;
 import com.imc.sqlclient.exception.SQLClientException;
 
 
-public class PluginFinder {
+public class DriverFinder {
 
-	private static final PluginClassesRepository REPO = PluginClassesRepository.getInstance();
+	private static final RegisteredClassesRepository REPO = RegisteredClassesRepository.getInstance();
 	
 	public CustomClassLoader getPluginClassLoader(String clazz) {
-		Plugin plugin = getPlugin(clazz);
+		Driver driver = getDriver(clazz);
 		List<URL> urlList;
 		try {
-			urlList = getUrls(plugin.getName());
+			urlList = getUrls(driver.getName());
 			if (urlList.isEmpty() ) {
 				throw new SQLClientException("Plugin does not contains resources");
 			}
@@ -27,34 +27,14 @@ public class PluginFinder {
 		catch (MalformedURLException e) {
 			throw new SQLClientException(e);
 		}
-		
 		CustomClassLoader customClassLoader = new CustomClassLoader(urlList);
-		
-		final PluginResgistry registry = PluginResgistry.getInstance();
-		
-		PluginEntry pluginEntry = new PluginEntry(plugin, customClassLoader);
-		PluginEntry oldEntry = registry.registerPlugin(clazz, pluginEntry);
-		
-		if ( oldEntry != null ) {
-			CustomClassLoader classLoader = oldEntry.getCustomClassLoader();
-			if ( classLoader != null ) {
-				try {
-					classLoader.close();
-				}
-				catch (Exception e) {
-				}
-			}
-			Plugin oldEntryPlugin = oldEntry.getPlugin();
-			oldEntryPlugin.setEnabled(false);
-		}
-		
 		return customClassLoader;
 	}
 	
-	private Plugin getPlugin(String name) {
-		Map<String,Plugin> repository =  REPO.getRepository();
-		Plugin plugin = null;
-		for(Map.Entry<String, Plugin> entry : repository.entrySet() ) {
+	private Driver getDriver(String name) {
+		Map<String,Driver> repository =  REPO.getRepository();
+		Driver plugin = null;
+		for(Map.Entry<String, Driver> entry : repository.entrySet() ) {
 			plugin  = entry.getValue();
 			Set<String> classess =  plugin.getClasses();
 			if (classess.contains(name)) {

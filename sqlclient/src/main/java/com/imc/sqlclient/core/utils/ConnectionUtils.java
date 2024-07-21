@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import com.imc.sqlclient.connection.DriverShim;
 import com.imc.sqlclient.core.CustomClassLoader;
-import com.imc.sqlclient.core.PluginFinder;
+import com.imc.sqlclient.core.DriverFinder;
 import com.imc.sqlclient.dto.ConnectionDetails;
 import com.imc.sqlclient.exception.SQLClientException;
 
@@ -20,11 +20,12 @@ public class ConnectionUtils {
 		final String password = connection.getPassword();
 		final String driver = connection.getDriverClassName();
 		try {
-			CustomClassLoader classLoader =  new PluginFinder().getPluginClassLoader(driver);
-			Class<?> clazz =  classLoader.loadClass(driver);
+			CustomClassLoader classLoader =  new DriverFinder().getPluginClassLoader(driver);
+			Class<?> clazz = classLoader.loadClass(driver);
 			Driver driverShim = (Driver) clazz.getDeclaredConstructor().newInstance();
 			DriverManager.registerDriver(new DriverShim(driverShim));
-			return  DriverManager.getConnection(url, username, password);
+			Connection connectionInstance =   DriverManager.getConnection(url, username, password);
+			return connectionInstance;
 		} catch (Exception e) {
 			throw new SQLClientException(e);
 		}

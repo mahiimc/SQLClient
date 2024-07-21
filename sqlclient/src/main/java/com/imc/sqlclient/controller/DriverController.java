@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.imc.sqlclient.core.Plugin;
-import com.imc.sqlclient.core.PluginClassesRepository;
-import com.imc.sqlclient.core.PluginResgistry;
-import com.imc.sqlclient.core.utils.PluginUtils;
+import com.imc.sqlclient.core.ApplicationProperties;
+import com.imc.sqlclient.core.Driver;
+import com.imc.sqlclient.core.DriverRegistry;
+import com.imc.sqlclient.core.DriverRegistry;
+import com.imc.sqlclient.core.RegisteredClassesRepository;
 import com.imc.sqlclient.handlers.ResponseBuilder;
 
 import lombok.RequiredArgsConstructor;
@@ -35,13 +35,13 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/v1/driver")
 @CrossOrigin(origins =  {"http://localhost:3000"})
 public class DriverController {
-	private static final String DRIVER_PATH = "D:\\Project\\sqlclient\\src\\main\\resources\\drivers";
+	private static final String DRIVER_PATH = ApplicationProperties.getInstance().getDriverPath();
 	private final ResponseBuilder responseBuilder;
 
 	@GetMapping("/")
 	public ResponseEntity<Map<String, Object>> listDrivers() {
 
-		PluginClassesRepository repo = PluginClassesRepository.getInstance();
+		RegisteredClassesRepository repo = RegisteredClassesRepository.getInstance();
 		List<Map<String,Object>> plugins = new ArrayList<>();
 		repo.getRepository().forEach((key, plugin) -> {
 			Map<String, Object> pluginObj =  responseBuilder.buildPluginObject(key, plugin);
@@ -62,8 +62,7 @@ public class DriverController {
 			Files.copy(multiPartFile.getInputStream(), Path.of(absPath));
 			message = "file uploaded successfully.";
 			status = HttpStatus.CREATED;
-			pluginObj = responseBuilder.buildPluginObject(absPath,
-					new Plugin(absPath,null));
+			pluginObj = responseBuilder.buildPluginObject(absPath,new Driver(absPath,null));
 		}
 		catch (IOException e) {
 			message = "Could not upload file due to " + e.getMessage();
@@ -88,8 +87,7 @@ public class DriverController {
 	
 	@GetMapping("/registered")
 	public ResponseEntity<Map<String,Object>> findRegisteredClasses() {
-		
-		Set<String> entryPoints =  PluginResgistry.getInstance().findEntryPoints();
+		Set<String> entryPoints =  DriverRegistry.getInstance().getEntryPointClasses();
 		return ResponseEntity.ok(responseBuilder.build(entryPoints));
 		
 	}

@@ -4,13 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
-import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
+import java.nio.file.WatchEvent.Kind;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -113,7 +113,7 @@ public class DirectoryWatcher implements Runnable {
 		log.debug("List of events : {}",watchEvents);
 		
 		for( WatchEvent<?> event : watchEvents ) {
-			WatchEvent.Kind kind = event.kind();
+			Kind<?> kind = event.kind();
 			if ( kind == StandardWatchEventKinds.OVERFLOW ) {
 				continue;
 			}
@@ -134,7 +134,7 @@ public class DirectoryWatcher implements Runnable {
 			}
 		}
 	}
-	private Path handleCreateAndDelete(WatchEvent.Kind kind, Path child) {
+	private Path handleCreateAndDelete(Kind<?> kind, Path child) {
 		log.info("Event Notified :: {} , {} ", kind , child);
 		
 		File file = child.toFile();

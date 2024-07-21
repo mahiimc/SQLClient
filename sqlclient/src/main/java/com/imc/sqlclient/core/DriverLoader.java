@@ -3,7 +3,7 @@ package com.imc.sqlclient.core;
 import java.io.File;
 import java.util.Set;
 
-import com.imc.sqlclient.core.utils.PluginUtils;
+import com.imc.sqlclient.core.utils.DriverUtils;
 
 public class DriverLoader {
 	
@@ -17,7 +17,7 @@ public class DriverLoader {
 		this.path = path;
 	}
 
-	private static final PluginClassesRepository REPO = PluginClassesRepository.getInstance();
+	private static final RegisteredClassesRepository REPO = RegisteredClassesRepository.getInstance();
 
 
 	public synchronized void load() {
@@ -38,16 +38,16 @@ public class DriverLoader {
 
 	public void loadFile(String absPath) {
 
-		if (PluginUtils.isJar(absPath) && new File(absPath).exists()) {
-			Set<String> classes = PluginUtils.listClasses(absPath);
-			Plugin plugin = new Plugin(absPath, classes);
-			REPO.update(absPath, plugin);
+		if (DriverUtils.isJar(absPath) ) {
+			Set<String> classes = DriverUtils.listClasses(absPath);
+			Driver driver = new Driver(absPath, classes);
+			REPO.update(absPath, driver);
 		}
 	}
 
 	public synchronized void deleteEntry(File file) {
 		String absPath = file.getAbsolutePath();
-		Plugin plugin = REPO.getPlugin(absPath);
+		Driver plugin = REPO.getDriver(absPath);
 		String directory = file.getParent();
 		if (isWatchedDirectory(directory)) {
 			REPO.remove(absPath);
@@ -59,7 +59,7 @@ public class DriverLoader {
 	
 	public synchronized void makeEntry(File file) {
 		String absPath = file.getAbsolutePath();
-		Plugin plugin = REPO.getPlugin(absPath);
+		Driver plugin = REPO.getDriver(absPath);
 		String directory = file.getParent();
 		if (isWatchedDirectory(directory)) {
 			loadFile(absPath);
