@@ -33,6 +33,7 @@ jobs:
     - run: cd ui && npm install
     - run: cd ui && npm ci
     - run: cd ui && CI=false npm run build --if-present
+    - run: pwd
       
     - name: Set up JDK 21
       uses: actions/setup-java@v3
