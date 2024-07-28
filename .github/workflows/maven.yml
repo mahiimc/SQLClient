@@ -33,6 +33,7 @@ jobs:
     - run: cd ui && npm install
     - run: cd ui && npm ci
     - run: cd ui && CI=false npm run build --if-present
+    - run: rm -rf /home/runner/work/SQLClient/SQLClient/sqlclient/src/main/resources/static
     - run: mv -T /home/runner/work/SQLClient/SQLClient/ui/build /home/runner/work/SQLClient/SQLClient/sqlclient/src/main/resources/static
       
     - name: Set up JDK 21
